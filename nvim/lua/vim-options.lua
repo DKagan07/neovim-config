@@ -8,7 +8,9 @@ vim.opt.breakindent = true
 
 vim.opt.signcolumn = "yes"
 
-vim.g.mapleader = ' '
+vim.opt.cursorline = true
+
+vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- Easy moving around windows/buffers
@@ -19,7 +21,6 @@ vim.keymap.set("n", "<C-l>", "<C-w>l")
 
 vim.keymap.set("n", "L", "$")
 vim.keymap.set("n", "H", "^")
-
 
 -- This is for making the vim background clear if you want
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -32,7 +33,6 @@ vim.opt.scrolloff = 10
 
 -- Fat cursor
 vim.opt.guicursor = ""
-
 
 -- Make line numbers default
 vim.wo.number = true
@@ -53,7 +53,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
-
 
 -- List diagnostics
 vim.keymap.set("n", "<leader>ld", vim.diagnostic.setqflist, { desc = "Quickfix [L]ist [D]iagnostics" })

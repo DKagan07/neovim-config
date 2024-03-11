@@ -35,6 +35,22 @@ return {
                 capabilities = capabilities
             })
 
+            lspconfig.tsserver.setup({
+                capabilities = capabilities
+            })
+
+            lspconfig.eslint.setup({
+                settings = {
+                    packageManager = "npm",
+                },
+                on_attach = function(client, bufnr)
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        buffer = bufnr,
+                        command = "EslintFixAll"
+                    })
+                end,
+            })
+
             -- Keymaps
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
             vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
