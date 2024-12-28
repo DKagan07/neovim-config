@@ -1,5 +1,8 @@
 return {
 	"nvimtools/none-ls.nvim",
+	dependencies = {
+		"nvimtools/none-ls-extras.nvim",
+	},
 	config = function()
 		local null_ls = require("null-ls")
 		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -9,8 +12,11 @@ return {
 				-- Lua
 				null_ls.builtins.formatting.stylua,
 				-- JS/TS
-				null_ls.builtins.formatting.prettier,
-				null_ls.builtins.diagnostics.eslint,
+				-- null_ls.builtins.formatting.prettier,
+				null_ls.builtins.formatting.prettierd.with({
+					command = "/home/linuxbrew/.linuxbrew/bin/prettierd",
+				}),
+				require("none-ls.diagnostics.eslint"),
 				-- Go
 				null_ls.builtins.formatting.gofumpt,
 				null_ls.builtins.formatting.golines,
@@ -22,8 +28,8 @@ return {
 				-- -- leptos
 				-- null_ls.builtins.formatting.leptosfmt,
 				-- CSS
-				null_ls.builtins.diagnostics.stylint,
-				null_ls.builtins.formatting.stylelint,
+				-- null_ls.builtins.diagnostics.stylint,
+				-- null_ls.builtins.formatting.stylelint,
 				-- Python
 				null_ls.builtins.formatting.black,
 				null_ls.builtins.diagnostics.pylint,
@@ -36,7 +42,9 @@ return {
 						group = augroup,
 						buffer = bufnr,
 						callback = function()
-							vim.lsp.buf.format()
+							vim.lsp.buf.format({ async = false })
+							-- vim.lsp.buf.format()
+							-- vim.lsp.buf.formatting_sync()
 						end,
 					})
 				end
