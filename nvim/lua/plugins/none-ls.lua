@@ -12,10 +12,10 @@ return {
 				-- Lua
 				null_ls.builtins.formatting.stylua,
 				-- JS/TS
-				-- null_ls.builtins.formatting.prettier,
-				null_ls.builtins.formatting.prettierd.with({
-					command = "/home/linuxbrew/.linuxbrew/bin/prettierd",
-				}),
+				null_ls.builtins.formatting.prettier,
+				-- null_ls.builtins.formatting.prettierd.with({
+				--     command = "/home/linuxbrew/.linuxbrew/bin/prettierd",
+				-- }),
 				require("none-ls.diagnostics.eslint"),
 				-- Go
 				null_ls.builtins.formatting.gofumpt,
@@ -33,6 +33,11 @@ return {
 				-- Python
 				null_ls.builtins.formatting.black,
 				null_ls.builtins.diagnostics.pylint,
+				-- C
+				null_ls.builtins.formatting.clang_format.with({
+					extra_args = { "--style=file" },
+				}),
+				null_ls.builtins.diagnostics.cmake_lint,
 			},
 
 			on_attach = function(client, bufnr)
@@ -48,6 +53,15 @@ return {
 						end,
 					})
 				end
+				if client.name == "eslint" then
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						group = augroup,
+						buffer = bufnr,
+						command = "EslintFixAll",
+					})
+				end
+
+				vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
 			end,
 		})
 		vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, {})

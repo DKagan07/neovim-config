@@ -2,13 +2,13 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         config = function()
-            require("gitsigns").setup();
+            require("gitsigns").setup()
 
-            vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {});
+            vim.keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {})
         end,
     },
     {
         "tpope/vim-fugitive",
         -- possibly add some keymaps here
-    }
+    },
 }

@@ -16,6 +16,7 @@ return {
 					"tailwindcss",
 					"ts_ls",
 					"pyright",
+					"clangd",
 				},
 			})
 		end,
@@ -63,12 +64,19 @@ return {
 				capabilities = capabilities,
 			})
 
+			lspconfig.clangd.setup({
+				capabilities = capabilities,
+				command = {
+					"--ofset-encoding=utf-8",
+				},
+			})
+
 			lspconfig.eslint.setup({
 				settings = {
 					packageManager = "npm",
 				},
 				root_dir = function(fname)
-					return lspconfig.util.root_pattern("frontend/package.json", "package.json")(fname)
+					return lspconfig.util.root_pattern("frontend/package.json", "./package.json")(fname)
 						or vim.fn.getcwd()
 				end,
 				capabilities = capabilities,
