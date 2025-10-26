@@ -12,11 +12,8 @@ return {
 				-- Lua
 				null_ls.builtins.formatting.stylua,
 				-- JS/TS
-				null_ls.builtins.formatting.prettier,
-				-- null_ls.builtins.formatting.prettierd.with({
-				--     command = "/home/linuxbrew/.linuxbrew/bin/prettierd",
-				-- }),
-				require("none-ls.diagnostics.eslint"),
+				null_ls.builtins.formatting.prettier, -- THIS ONE
+				require("none-ls.diagnostics.eslint"), --THIS ONE
 				-- Go
 				null_ls.builtins.formatting.gofumpt,
 				null_ls.builtins.formatting.golines,
@@ -48,12 +45,14 @@ return {
 						buffer = bufnr,
 						callback = function()
 							vim.lsp.buf.format({ async = false })
+							-- vim.lsp.buf.format({ async = false })
 							-- vim.lsp.buf.format()
 							-- vim.lsp.buf.formatting_sync()
 						end,
 					})
 				end
 				if client.name == "eslint" then
+					print("eslint client")
 					vim.api.nvim_create_autocmd("BufWritePre", {
 						group = augroup,
 						buffer = bufnr,
